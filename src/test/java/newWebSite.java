@@ -11,6 +11,7 @@ import org.testng.annotations.Test;
 
 import java.time.Duration;
 import java.util.List;
+import java.util.Set;
 
 public class newWebSite {
     WebDriver driver;
@@ -161,6 +162,21 @@ public class newWebSite {
        alert4.accept();
        String promptResult=driver.findElement(By.xpath("//span[@id='promptResult']")).getText();
        System.out.println("result is "+promptResult);
+   }
+   @Test
+
+   public void windowsHandle(){
+        driver.get("https://demoqa.com/browser-windows");
+        String curruntWindow=driver.getWindowHandle();
+        driver.findElement(By.xpath("//button[@id='tabButton']")).click();
+        Set<String>allWindows=driver.getWindowHandles();
+       for (String window :allWindows){
+           if (!window.equals(curruntWindow)){
+               driver.switchTo().window(window);
+               System.out.println("url is "+driver.getCurrentUrl());
+           }
+       }
+
    }
 }
 
