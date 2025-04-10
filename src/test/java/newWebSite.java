@@ -165,7 +165,7 @@ public class newWebSite {
    }
    @Test
 
-   public void windowsHandle(){
+   public void windowsHandle1(){
         driver.get("https://demoqa.com/browser-windows");
         String curruntWindow=driver.getWindowHandle();
         driver.findElement(By.xpath("//button[@id='tabButton']")).click();
@@ -177,6 +177,54 @@ public class newWebSite {
            }
        }
 
+   }
+   @Test
+   public  void windowHnadle2(){
+        driver.get("https://demoqa.com/browser-windows");
+        String mainWindow=driver.getWindowHandle();
+        driver.findElement(By.xpath("//button[@id='windowButton']")).click();
+//        WebDriverWait webDriverWait=new WebDriverWait(driver,Duration.ofSeconds(10));
+//        webDriverWait.until(ExpectedConditions.numberOfWindowsToBe(1));
+        Set<String>allWindows=driver.getWindowHandles();
+        for (String window :allWindows){
+            if (!window.equals(mainWindow)){
+                driver.switchTo().window(window);
+                break;
+            }
+            System.out.println("titile is "+driver.getTitle());
+        }
+   }
+   @Test
+   public void windowMassage() throws InterruptedException {
+       driver.get("https://demoqa.com/browser-windows");
+        String parentWindow=driver.getWindowHandle();
+        driver.findElement(By.xpath("//button[@id='messageWindowButton']")).click();
+        Set<String>allWindows=driver.getWindowHandles();
+        for (String window :allWindows){
+            if (!window.equals(parentWindow)){
+                driver.switchTo().window(window);
+            }
+        }
+        Thread.sleep(1000);
+        String massage=driver.findElement(By.cssSelector("//body")).getText();
+       System.out.println("contain is " +massage);
+   }
+   @Test
+   public void modalHandle(){
+        driver.get("https://demoqa.com/modal-dialogs");
+        driver.findElement(By.xpath("//button[@id='showSmallModal']")).click();
+        String insideText=driver.findElement(By.xpath("//div[@class='modal-body']")).getText();
+       System.out.println(insideText);
+
+       driver.findElement(By.xpath("//button[@id='closeSmallModal']")).click();
+   }
+   @Test
+   public void sliderHandle(){
+        driver.get("https://demoqa.com/slider");
+        WebElement slider=driver.findElement(By.xpath("//input[@type='range']"));
+        Actions actions=new Actions(driver);
+       actions.moveToElement(slider).click().build().perform();
+       actions.clickAndHold(slider).moveByOffset(50, 0).release().perform();
    }
 }
 
