@@ -226,5 +226,43 @@ public class newWebSite {
        actions.moveToElement(slider).click().build().perform();
        actions.clickAndHold(slider).moveByOffset(50, 0).release().perform();
    }
+   @Test
+   public  void menuHandle(){
+        driver.get("https://demoqa.com/menu#");
+        WebElement mainMemu1=driver.findElement(By.xpath("//a[normalize-space()='Main Item 1']"));
+       Actions actions=new Actions(driver);
+       actions.moveToElement(mainMemu1).perform();
+        WebElement mainMenu2=driver.findElement(By.xpath("//a[normalize-space()='Main Item 2']"));
+        actions.moveToElement(mainMenu2).perform();
+        WebElement subMenu=driver.findElement(By.xpath("//a[normalize-space()='SUB SUB LIST »']"));
+        subMenu.click();
+   WebElement sunMenu= driver.findElement(By.xpath("//a[normalize-space()='Sub Sub Item 1']"));
+   actions.moveToElement(sunMenu).perform();
+
+   }
+   @Test
+   public  void select() throws InterruptedException {
+        driver.get("https://demoqa.com/select-menu");
+//       WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
+//
+//       WebElement dropdown = wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("div[id='selectOne']")));
+//       dropdown.click();
+//
+//       WebElement option = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//div[text()='Prof.']")));
+//       option.click();
+
+       WebElement dropDown =driver.findElement(By.xpath("//select[@id='oldSelectMenu']"));
+       Select select=new Select(dropDown);
+       select.selectByVisibleText("Blue");
+
+       WebElement dropdown2=driver.findElement(By.xpath("//select[@id='cars']"));
+      Select Standard_multi_select=new Select(dropdown2);
+       Standard_multi_select.selectByVisibleText("Volvo");
+
+       WebElement selectInput=driver.findElement(By.xpath("//div[@id='selectMenuContainer']//div[@class='row']//div[contains(@class,'css-tlfecz-indicatorContainer')]"));
+       selectInput.click();
+       selectInput.sendKeys("Green");
+       selectInput.sendKeys(Keys.ENTER);
+   }
 }
 
